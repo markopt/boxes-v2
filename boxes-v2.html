@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            td {
+                border: 4px solid #888;
+                width: 40px;
+                height: 40px;
+                text-align: center;
+                font-family: sans-serif;
+                font-size: 14;
+                color: white;
+            }
+        </style>
+        <script>
+            !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t,e){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src="https://cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(n,a);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.1.0";
+                analytics.load("YDPVMlhaaC7XxcdXh59uRbgzhHjJ7y7H");
+                analytics.page();
+            }}();
+        </script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-RCXLXLQPZ2"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-RCXLXLQPZ2');
+        </script> -->
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
+        <script src="https://malsup.github.com/jquery.form.js"></script>
+        <!-- <script src="https://cdn.split.io/sdk/split-10.11.1.min.js"></script> -->
+        <script src="https://cdn.split.io/sdk/split-10.22.1.min.js"></script>
+        <!-- <script src="https://cdn.split.io/rum-agent/rum-agent-0.2.1.min.js"></script> -->
+        <script> 
+
+            // async function logImpression(impressionData) {
+            //     console.log(impressionData.impression)
+            //     let endpoint = "https://fn.segmentapis.com/?b=ajdTMjFiTVpDU0U4czZUcVBoYVZWdzo6NFo3Uk5ld2xyeVZVR1pjRXFBeGxYMU9XUG44NFBpR2c="
+                    
+            //     let response;
+
+            //     let payload = impressionData.impression
+            //     console.log(payload)
+
+            //     try {
+            //         response = await fetch(endpoint, {
+            //             method: 'POST',
+            //             headers: {
+            //                 'Content-Type': 'text/plain, charset=UTF-8',
+            //                 'Allow': 'POST',
+            //                 // 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+            //                 'Access-Control-Allow-Origin': '*',
+            //                 'Accept': 'application/json, text/plain, */*'
+            //             },
+            //             body: JSON.stringify(payload),
+            //             mode: 'no-cors'
+            //         });
+            //     } catch (error) {
+            //         // Retry on connection error
+            //         // throw new RetryError(error.message);
+            //         console.log(error)
+            //     }
+            // }
+            var factory = splitio({
+                startup: {
+                    requestTimeoutBeforeReady:   0.8, // 800ms
+                    retriesOnFailureBeforeReady:   1, // 1 sec
+                    readyTimeout:                1.5, // 1.5 sec
+                    eventsFirstPushWindow:        10  // 10 sec
+                },
+                //split v3 local key: jg9ld29ghllrh2a8dmcikupm3vurgfvigj1e
+                streamingEnabled: false,
+                core: {
+                    // authorizationKey: 'vdv97frpo8dmbdap5nbe8q22pmauj1hj519',
+                    authorizationKey: 'jg9ld29ghllrh2a8dmcikupm3vurgfvigj1e',
+                    key: 'user1',
+                    trafficType: 'user',
+                    labelsEnabled: true
+                },
+                // impressionListener: {
+                //     logImpression: logImpression
+                // },
+                scheduler: {
+                    featuresRefreshRate:    1, // 30 sec 
+                    segmentsRefreshRate:    60, // 60 sec 
+                    metricsRefreshRate:     60, // 60 sec
+                    impressionsRefreshRate: 10, // 60 sec
+                    eventsPushRate:         10, // 60 sec
+                    eventsQueueSize:       500  // 500 items
+                },
+                sync: {
+                    impressionsMode: ""
+                },
+                debug: false
+            });
+
+            var client = factory.client(); 
+            function createSDKListeners() {
+                client.on(client.Event.SDK_READY, function() {
+                    console.log('The SDK is ready!');
+                    drawTable(client);
+                });
+
+                client.on(client.Event.SDK_UPDATE, function () {
+                    console.log('The SDK has been updated!');
+                    drawTable(client);
+                });
+            }
+
+            $(document).ready(function() { 
+                createSDKListeners();
+            });
+            var users = [              
+                [ "a0", "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9" ],
+                [ "b0", "b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9" ],
+                [ "c0", "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9" ],
+                [ "d0", "d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8", "d9" ],
+                [ "e0", "e1", "e2", "e3", "e4", "e5", "e6", "e7", "e8", "e9" ],
+                [ "f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9" ],
+                [ "g0", "g1", "g2", "g3", "g4", "g5", "g6", "g7", "g8", "g9" ],
+                [ "h0", "h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9" ],
+                [ "i0", "i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9" ],
+                [ "j0", "j1", "j2", "j3", "j4", "j5", "j6", "j7", "j8", "j9" ]
+            ];
+
+            var account = [              
+                [ "Nike", "Nike", "Nike", "Apple", "Apple", "Apple", "LinkedIn", "Best Buy", "Best Buy", "Best Buy" ],
+                [ "Nike", "Nike", "Nike", "Apple", "Apple", "Apple", "LinkedIn", "Best Buy", "Best Buy", "Best Buy" ],
+                [ "Nike", "Nike", "Nike", "Apple", "Apple", "Apple", "LinkedIn", "Best Buy", "Best Buy", "Best Buy" ],
+                [ "Google", "Google", "Google", "Microsoft", "Microsoft", "Microsoft", "Microsoft", "Best Buy", "Best Buy", "Best Buy" ],
+                [ "Google", "Google", "Google", "Microsoft", "Microsoft", "Microsoft", "Microsoft", "Pintrest", "Pintrest", "Pintrest" ],
+                [ "Google", "Google", "Google", "Microsoft", "Microsoft", "Microsoft", "Microsoft", "Pintrest", "Pintrest", "Pintrest" ],
+                [ "Dell", "Dell", "Dell", "Microsoft", "Microsoft", "Microsoft", "Microsoft", "Pintrest", "Pintrest", "Pintrest" ],
+                [ "Zoom", "Zoom", "Zoom", "Slack", "Slack", "Slack", "Samsung", "Disney", "Disney", "Disney" ],
+                [ "Zoom", "Zoom", "Zoom", "Slack", "Slack", "Slack", "Samsung", "Disney", "Disney", "Disney" ],
+                [ "Zoom", "Zoom", "Zoom", "Slack", "Slack", "Slack", "Samsung", "Disney", "Disney", "Disney" ]
+            ];
+
+            var device_type = [              
+                [ "desktop", "desktop", "mobile", "desktop", "tablet", "mobile", "mobile", "tablet", "desktop", "mobile" ],
+                [ "tablet", "mobile", "mobile", "desktop", "mobile", "mobile", "tablet", "desktop", "mobile", "tablet" ],
+                [ "mobile", "desktop", "desktop", "desktop", "mobile", "tablet", "mobile", "mobile", "mobile", "desktop" ],
+                [ "desktop", "desktop", "mobile", "mobile", "tablet", "mobile", "mobile", "tablet", "desktop", "mobile" ],
+                [ "tablet", "mobile", "mobile", "desktop", "mobile", "mobile", "tablet", "desktop", "mobile", "tablet" ],
+                [ "mobile", "desktop", "desktop", "desktop", "mobile", "tablet", "mobile", "mobile", "mobile", "desktop" ],
+                [ "desktop", "mobile", "mobile", "desktop", "tablet", "mobile", "mobile", "tablet", "desktop", "mobile" ],
+                [ "tablet", "mobile", "mobile", "desktop", "mobile", "mobile", "tablet", "desktop", "mobile", "tablet" ],
+                [ "mobile", "desktop", "desktop", "mobile", "mobile", "tablet", "mobile", "mobile", "mobile", "desktop" ],
+                [ "mobile", "desktop", "desktop", "desktop", "mobile", "tablet", "mobile", "mobile", "mobile", "desktop" ]
+            ];
+
+            var connection_type = [              
+                [ "4g", "4g", "3g", "4g", "3g", "3g", "4g", "3g", "4g", "4g" ],
+                [ "4g", "4g", "3g", "4g", "3g", "3g", "3g", "3g", "4g", "4g" ],
+                [ "4g", "4g", "4g", "4g", "4g", "3g", "3g", "3g", "4g", "4g" ],
+                [ "4g", "4g", "3g", "4g", "4g", "4g", "3g", "3g", "3g", "3g" ],
+                [ "3g", "3g", "3g", "3g", "3g", "4g", "3g", "3g", "3g", "3g" ],
+                [ "4g", "3g", "3g", "3g", "4g", "3g", "3g", "3g", "4g", "3g" ],
+                [ "3g", "3g", "4g", "3g", "3g", "3g", "4g", "4g", "4g", "4g" ],
+                [ "4g", "4g", "3g", "4g", "4g", "4g", "4g", "3g", "4g", "4g" ],
+                [ "4g", "3g", "3g", "4g", "3g", "3g", "4g", "3g", "3g", "3g" ],
+                [ "4g", "4g", "3g", "3g", "4g", "4g", "3g", "3g", "3g", "3g" ]
+            ];
+
+            var account_type = [              
+                [ "personal", "personal", "smb", "personal", "enterprise", "smb", "smb", "enterprise", "personal", "smb" ],
+                [ "enterprise", "smb", "smb", "personal", "smb", "smb", "enterprise", "personal", "smb", "enterprise" ],
+                [ "smb", "personal", "personal", "personal", "smb", "enterprise", "smb", "smb", "smb", "personal" ],
+                [ "personal", "personal", "smb", "smb", "enterprise", "smb", "smb", "enterprise", "personal", "smb" ],
+                [ "enterprise", "smb", "smb", "personal", "smb", "smb", "enterprise", "personal", "smb", "enterprise" ],
+                [ "smb", "personal", "personal", "personal", "smb", "enterprise", "smb", "smb", "smb", "personal" ],
+                [ "personal", "smb", "smb", "personal", "enterprise", "smb", "smb", "enterprise", "personal", "smb" ],
+                [ "enterprise", "smb", "smb", "personal", "smb", "smb", "enterprise", "personal", "smb", "enterprise" ],
+                [ "smb", "personal", "personal", "smb", "smb", "enterprise", "smb", "smb", "smb", "personal" ],
+                [ "smb", "personal", "personal", "personal", "smb", "enterprise", "smb", "smb", "smb", "personal" ]
+            ];
+
+            function drawTable(client, truncate) {
+                console.log("drawTable!");
+                var tbl = document.getElementById("myTable"); // Get the table
+
+                var tableRef = document.getElementById("myTable").getElementsByTagName('tbody')[0];
+                console.log("tbody: " + tbl.getElementsByTagName("tbody")[0].rows.length);
+                if(tbl.getElementsByTagName("tbody")[0].rows.length > 1) {
+                    console.log("truncating rows");
+                    for(var k = 0; k < 10; k++) {
+                        tbl.getElementsByTagName("tbody")[0].deleteRow(0);
+                    }
+                }
+
+                for(var i = 0; i < 10; i++) {
+                    var row = tableRef.insertRow(tableRef.rows.length);
+                    for(var j = 0; j < 10; j++) {
+                        var cell = row.insertCell();
+                        cell.appendChild(document.createTextNode(users[i][j]));
+                    }
+                    var cells = row.getElementsByTagName("td");
+                    for(var j = 0; j < cells.length; j++) {
+                        try {
+                            client = factory.client(users[i][j]);
+                        } catch (e) {
+                            console.log(e);
+                        }
+                        var attributes = {
+                            row : users[i][j].charAt(0),
+                            col : users[i][j].charAt(1),
+		                    userid : users[i][j],
+                            account : account[i][j],
+                            device_type : device_type[i][j],
+                            connection_type : connection_type[i][j],
+                            account_type : account_type[i][j]
+                        }
+                        
+                        // var splitResult = client.getTreatmentWithConfig('dynamo', attributes);
+                        var splitResult = client.getTreatmentWithConfig('new_console_interface', attributes);
+                        console.log(splitResult);
+                        if(splitResult.config != null) {
+                            var configs = JSON.parse(splitResult.config);
+                            cells[j].style.borderColor = configs.box_border_color;
+                            cells[j].style.borderWidth = configs.box_border_width;
+                            cells[j].style.textShadow = configs.text_shadow;
+                            cells[j].style.fontSize = configs.font_size;
+                        }
+                        if (splitResult.treatment === 'on') {
+                            // cells[j].style.backgroundColor = "rgb(0, 124, 156)";
+                            cells[j].style.backgroundColor = "rgb(84, 82, 246)";
+                            // rgb(84, 82, 246)
+                            var configs = JSON.parse(splitResult.config);
+                            var random = Math.floor((Math.random() * (100-80)) + 80);
+                            var properties = {package : "premium", admin : true, discount : 50};
+							var queued = client.track('user','boxes_load_time', random, properties);
+                            var queued_2 = client.track('user','user_conversion', random, properties);
+                            var queued_new = client.track('user','boxes_load_time_startup', random, properties);
+                        } else if (splitResult.treatment === 'off') {
+                            cells[j].style.backgroundColor = "rgb(229, 72, 77)";
+                            // cells[j].style.backgroundColor = "rgb(131, 0, 255)";
+                            var configs = JSON.parse(splitResult.config);
+                            var random = Math.floor((Math.random() * (110-90)) + 90);
+                            var properties = {package : "standard", admin : true, discount : 60};
+							var queued = client.track('user','boxes_load_time', random, properties);
+                            var queued_new = client.track('user','boxes_load_time_startup', random, properties);
+                            var queued_2 = client.track('user','user_conversion', random, properties);
+                        } else if (splitResult.treatment === 'default') {
+                            cells[j].style.backgroundColor = "rgb(173, 193, 116)";
+
+                        }   else {
+                            var queued = client.track('user','boxes_load_time', random, properties);
+                            var queued_new = client.track('user','boxes_load_time_startup', random, properties);
+                            var queued_2 = client.track('user','user_conversion', random, properties);
+                            var queued_3 = client.track('user','user_trial_click', random, properties);
+                            console.log("unexpected treatment: " + splitResult.treatment);
+                            cells[j].style.backgroundColor = "rgb(229, 72, 77)";
+                            // cells[j].style.backgroundColor = "rgb(131, 0, 255)";
+                            // cells[j].style.backgroundColor = "rgb(255, 70, 82)";
+                        }
+                    }
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <table id="myTable">
+            <tbody/>
+        </table>
+    </body>
+</html>
